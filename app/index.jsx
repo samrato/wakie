@@ -20,7 +20,10 @@ export default function App() {
   const handlePress = () => {
     setGreeting(`Welcome, ${name}! 🎉`);
   };
-
+  const reset = () => {
+    setcounter(0);
+  };
+  
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Enter your name:</Text>
@@ -43,6 +46,16 @@ export default function App() {
         <Text style={styles.counter}>{counter}</Text>
         <TouchableOpacity style={styles.button} onPress={decrement}>
           <Text style={styles.buttonText}>Decrement</Text>
+        </TouchableOpacity>
+
+        {counter > 10 && (
+          <Text style={{ color: "red", fontSize: 16, textAlign: "center" }}>
+            That's a big number! 🚀
+          </Text>
+        )}
+
+        <TouchableOpacity style={styles.button} onPress={reset}>
+          <Text style={styles.buttonText}>Reset</Text>
         </TouchableOpacity>
       </View>
     </View>
