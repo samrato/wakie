@@ -10,7 +10,13 @@ import {
 export default function App() {
   const [name, setName] = useState("");
   const [greeting, setGreeting] = useState("");
-
+  const [counter, setcounter] = useState(0);
+  const increment = () => {
+    setcounter(counter + 1);
+  };
+  const decrement = () => {
+    setcounter(counter - 1);
+  };
   const handlePress = () => {
     setGreeting(`Welcome, ${name}! 🎉`);
   };
@@ -28,6 +34,17 @@ export default function App() {
         <Text style={styles.buttonText}>Say Hello</Text>
       </TouchableOpacity>
       {greeting !== "" && <Text style={styles.result}>{greeting}</Text>}
+
+      <View style={{ marginTop: 40 }}>
+        <Text style={styles.label}>This is a counter app</Text>
+        <TouchableOpacity style={styles.button} onPress={increment}>
+          <Text style={styles.buttonText}>Increment</Text>
+        </TouchableOpacity>
+        <Text style={styles.counter}>{counter}</Text>
+        <TouchableOpacity style={styles.button} onPress={decrement}>
+          <Text style={styles.buttonText}>Decrement</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -67,5 +84,13 @@ const styles = StyleSheet.create({
   result: {
     fontSize: 20,
     color: "#33691e",
+  },
+
+  counter: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#33691e",
+    textAlign: "center",
+    marginBottom: 20,
   },
 });
