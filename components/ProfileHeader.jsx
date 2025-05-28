@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { useAuthStore } from "../store/authStore";
-import styles from "../assets/styles/ profile.styles";
+import styles from "../assets/styles/profile.styles";
 import { Image } from "expo-image";
 import { formatMemberSince } from "../lib/util";
 export default function ProfileHeader() {

@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Alert, Text, TouchableOpacity } from "react-native";
-import styles from "../assets/styles/ profile.styles";
+import styles from "../assets/styles/profile.styles";
 import COLORS from "../constants/colors";
 import { useAuthStore } from "../store/authStore";
 
