@@ -12,7 +12,7 @@ import {
   View,
 } from "react-native";
 import { sleep } from ".";
-import styles from "../../assets/styles/ profile.styles";
+import styles from "../../assets/styles/profile.styles";
 import Loader from "../../components/Loader";
 import LogoutButton from "../../components/LogoutButton";
 import ProfileHeader from "../../components/ProfileHeader";

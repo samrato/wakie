@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import styles from "../../assets/styles/ home.styles";
+import styles from "../../assets/styles/home.styles";
 import Loader from "../../components/Loader";
 import { API_URL } from "../../constants/api";
 import COLORS from "../../constants/colors";
