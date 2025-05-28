@@ -1,32 +1,45 @@
-import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-export default function Index() {
+export default function App() {
+  const [name, setName] = useState('');
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text> hello welcome to my app.</Text>
-      <Text>The future of android</Text>
-      <Link href="/about">about </Link>
+    <View style={styles.container}>
+      <Text style={styles.label}>Enter your name:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Type here..."
+        value={name}
+        onChangeText={text => setName(text)}
+      />
+      <Text style={styles.result}>Hello, {name} 👋</Text>
     </View>
   );
 }
-const style = StyleSheet.create({
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#fff8e1',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#6d4c41',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#a1887f',
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  result: {
+    fontSize: 20,
+    color: '#4e342e',
   },
 });
