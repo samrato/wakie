@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function App() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
+  const [greeting, setGreeting] = useState("");
+
+  const handlePress = () => {
+    setGreeting(`Welcome, ${name}! 🎉`);
+  };
 
   return (
     <View style={styles.container}>
@@ -11,9 +22,12 @@ export default function App() {
         style={styles.input}
         placeholder="Type here..."
         value={name}
-        onChangeText={text => setName(text)}
+        onChangeText={(text) => setName(text)}
       />
-      <Text style={styles.result}>Hello, {name} 👋</Text>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <Text style={styles.buttonText}>Say Hello</Text>
+      </TouchableOpacity>
+      {greeting !== "" && <Text style={styles.result}>{greeting}</Text>}
     </View>
   );
 }
@@ -21,25 +35,37 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: '#fff8e1',
+    backgroundColor: "#f0f4c3",
   },
   label: {
     fontSize: 18,
     marginBottom: 10,
-    color: '#6d4c41',
+    color: "#33691e",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#a1887f',
+    borderColor: "#8bc34a",
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
   },
+  button: {
+    backgroundColor: "#558b2f",
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   result: {
     fontSize: 20,
-    color: '#4e342e',
+    color: "#33691e",
   },
 });
