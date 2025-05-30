@@ -83,25 +83,9 @@ export default function Create() {
       const uriParts = image.split(".");
       const fileType = uriParts[uriParts.length - 1];
       const imageType = fileType
-        ? `image/${fileType.toLowecase()}`
+        ? `image/${fileType.toLowerCase()}`
         : "image/jpeg";
       const imageDataUrl = `data:${imageType};base64,${imageBas64}`;
-
-      // Convert image URI to file for uploading
-      // const localUri = image;
-      // const filename = localUri.split("/").pop();
-      // const fileExtension = fileType || "jpg";
-      // const file = {
-      //   uri: localUri,
-      //   name: filename,
-      //   type: `image/${fileExtension}`,
-      // };
-
-      // const formData = new FormData();
-      // formData.append("image", file);
-      // formData.append("title", title);
-      // formData.append("caption", caption);
-      // formData.append("rating", rating.toString());
 
       const response = await fetch(`${API_URL}/api/books`, {
         method: "POST",
