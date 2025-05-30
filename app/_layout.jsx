@@ -1,48 +1,65 @@
-import { useFonts } from "expo-font";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { SplashScreen, Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
+import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
+import { useEffect, useState } from "react";
+import { useFonts } from "expo-font";
+import { View } from "react-native";
+import { useRouter, useSegments } from "expo-router"; // Make sure this import exists
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const router = useRouter();
-  const segments = useSegments();
+  const [isReady, setIsReady] = useState(false);
   const { checkAuth, user, token } = useAuthStore();
-
   const [fontsLoaded] = useFonts({
     "JetBrainsMono-Medium": require("../assets/fonts/JetBrainsMono-Medium.ttf"),
   });
 
   useEffect(() => {
-    if (fontsLoaded) SplashScreen.hideAsync();
+    async function prepare() {
+      await checkAuth();
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
+        setIsReady(true);
+      }
+    }
+    prepare();
   }, [fontsLoaded]);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-  // handle navigation based on navigation state auth
-  // it will run to update state whenever the user ,token and segment changes
-  useEffect(() => {
-    const inAuthScreen = segments[0] == "(auth)";
-    const isSignedIn = user && token;
-    if (!isSignedIn && !inAuthScreen) router.replace("/(auth)");
-    else if (isSignedIn && inAuthScreen) router.replace("/(tabs)");
-  }, [user, token, segments]);
+  if (!isReady) {
+    return <View style={{ flex: 1, backgroundColor: 'white' }} />;
+  }
 
   return (
     <SafeAreaProvider>
       <SafeScreen>
         <Stack screenOptions={{ headerShown: false }}>
-          {/* //the fucking routes are done here eg tabs for profile then auth for logind */}
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="(auth)" />
         </Stack>
+        {isReady && <AuthRedirectHandler user={user} token={token} />}
       </SafeScreen>
       <StatusBar style="dark" />
     </SafeAreaProvider>
   );
+}
+
+function AuthRedirectHandler({ user, token }) {
+  const router = useRouter();
+  const segments = useSegments();
+
+  useEffect(() => {
+    const inAuthScreen = segments[0] === "(auth)";
+    const isSignedIn = user && token;
+    
+    if (!isSignedIn && !inAuthScreen) {
+      router.replace("/(auth)");
+    } else if (isSignedIn && inAuthScreen) {
+      router.replace("/(tabs)");
+    }
+  }, [user, token, segments]);
+
+  return null;
 }
